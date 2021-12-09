@@ -1,7 +1,7 @@
 from django.urls import path
-from .views import index
+from .views import login_page
 
 urlpatterns = [
-    path('', index, name="authentication-index"),
+    path('', login_page, name="login"),
 ]
 

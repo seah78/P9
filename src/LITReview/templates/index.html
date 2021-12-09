@@ -7,10 +7,8 @@
     <link rel="stylesheet" href="{% static 'style.css' %}">
 </head>
 <body>
-    <h1>Site en construction</h1>
+    <h1>LITReview</h1>
 
-    <h2>Nous sommes le {{date|date:"d F Y H:i:s"}}</h2>
-
-    Merci de revenir ultérieurement
+    {% block content %}{% endblock content %}
 </body>
 </html>
