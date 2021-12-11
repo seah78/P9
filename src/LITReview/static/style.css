@@ -1,4 +1,18 @@
 body {
-    background-color: black;
-    color: white;
+    background-color: white;
+    color: black;
 }
+div {
+    content: center;
+}
+h1 {
+    align-content: center;
+}
+
+.button {
+    padding: 15px 100px;
+    margin:10px 4px;
+    color: black;
+    border-left:1px solid black;
+    border-right:1px solid black;
+    }
