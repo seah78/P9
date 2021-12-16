@@ -7,8 +7,12 @@ urlpatterns = [
     path('', 
          LoginView.as_view(template_name='authentication/login.html',
                            redirect_authenticated_user=True), 
+         name="index"),
+    path('login/', 
+         LoginView.as_view(template_name='authentication/login.html',
+                           redirect_authenticated_user=True), 
          name="login"),
-    path('logout', 
+    path('logout/', 
          LogoutView.as_view(), 
          name="logout"),
     path('change-password/', PasswordChangeView.as_view(

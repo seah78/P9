@@ -1,14 +1,16 @@
 {% extends 'index.html' %}
 {% block content %}
-<button onclick="window.location.href = {% url 'login' %};">Retourner</button>
-    <h2>Inscrivez-vous</h2>
+<div class="content">
+<p><h2>Inscrivez-vous</h2></p>
     {% if form.errors %}
         {{ form.errors }}
     {% endif %}
     <form method="post">
         {{ form.as_p }}
         {% csrf_token %}
+        <button onclick="window.location.href = {% url 'login' %};">Retourner</button>
         <button type="submit" >S’inscrire</button>
     </form>
-    <a href="{% url 'login' %}">Retour</a>
+
+</div>    
 {% endblock content %}

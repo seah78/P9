@@ -7,16 +7,19 @@
     <link rel="stylesheet" href="{% static 'style.css' %}">
 </head>
 <body>
-    <div>
+    <section>
+    <div class="border">
         <h1>LITReview</h1>
     </div>
-    <div>
+    <div class="border header">
 
         {% block content %}{% endblock content %}
         {%  if user.is_authenticated %}
         <p><a href="{% url 'logout' %}">Se déconnecter</a></p>
         {% endif %}
-    </div>    
+    </div>
+    <section>
+
 
 
 </body>

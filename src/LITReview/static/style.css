@@ -1,18 +1,40 @@
 body {
+    box-sizing: border-box;
     background-color: white;
     color: black;
 }
-div {
-    content: center;
-}
-h1 {
-    align-content: center;
-}
 
-.button {
-    padding: 15px 100px;
-    margin:10px 4px;
-    color: black;
-    border-left:1px solid black;
-    border-right:1px solid black;
-    }
+section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-sizing: content-box;
+    width: 100%;
+    padding: 5px;
+    text-align: center;
+  }
+
+
+
+
+.border {
+    border: solid 1px #000000;
+    background-color:#ffffff;
+    width: 100%;
+  }
+  
+.header{
+    display: flex;
+      justify-content: space-around;
+  }
+
+.case{
+    width: 45%;
+    padding: 5px;
+  }
+
+.content{
+    width: 95%;
+    padding: 5px;
+  }
