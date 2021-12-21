@@ -2,5 +2,17 @@
 {% block content %}
 {%  if user.is_authenticated %}
 <p>Vous êtes connecté en tant que {{ request.user }}.</p>
+<p><button onclick="window.location.href = {% url 'make_ticket' %};">Créer une critique</button></p>
+
+
+{% for ticket in tickets %}
+<p>{{ ticket.title }}<br>
+   {{ ticket.description}}<br> 
+   <img src="{{ ticket.image.url }}">
+
+</p>
+
+
+{% endfor %}
 {% endif %}
 {% endblock content %}
