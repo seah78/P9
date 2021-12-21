@@ -1,6 +1,6 @@
 
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 from .models import Ticket
 from .forms import TicketForm
@@ -20,6 +20,6 @@ def make_ticket(request):
             ticket = form.save(commit=False)
             ticket.user = request.user
             ticket.save()
-            messages.info(request, "Votre ticket vient d'être publié!")
+            #messages.info(request, "Votre ticket vient d'être publié!")
             return redirect("flux")
     return render(request,"flux/create_ticket.html", context={"form": form})

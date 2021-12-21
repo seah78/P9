@@ -1,18 +1,26 @@
 {% extends 'index.html' %}
 {% block content %}
 {%  if user.is_authenticated %}
-<p>Vous êtes connecté en tant que {{ request.user }}.</p>
-<p><button onclick="window.location.href = {% url 'make_ticket' %};">Créer une critique</button></p>
 
+<div class="header">
+    <div class="case">    
+        <p><button>Demander une critique</button></p>
+    </div>
+    <div class="case">    
+    <p><button onclick="window.location.href = {% url 'make_ticket' %};">Créer une critique</button></p>
+    </div>
+</div>
+<div class="content">
+    {% for ticket in tickets %}
+    <div class="border">
+    <p>{{ ticket.title }}<br>
+    {{ ticket.description}}<br> 
+    <img src="{{ ticket.image.url }}"><br>
 
-{% for ticket in tickets %}
-<p>{{ ticket.title }}<br>
-   {{ ticket.description}}<br> 
-   <img src="{{ ticket.image.url }}">
+    </p>
+    </div>
+    {% endfor %}
+</div>
 
-</p>
-
-
-{% endfor %}
 {% endif %}
 {% endblock content %}

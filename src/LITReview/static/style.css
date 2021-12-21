@@ -15,8 +15,13 @@ section {
     text-align: center;
   }
 
+.left {
+  align-items: left;
+}
 
-
+.right {
+  align-items: right;
+}
 
 .border {
     border: solid 1px #000000;
