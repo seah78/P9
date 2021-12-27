@@ -11,26 +11,24 @@
     <div class="border">
         <h1>LITReview</h1>
     </div>
+</section>
+    {%  if user.is_authenticated %}
+    <nav class="header">
+        <p>Vous êtes connecté en tant que {{ request.user }}.</p>
+        <p>
+            <a href="{% url 'flux' %}">FLux</a>
+            <a href="{% url 'logout' %}">Posts</a>
+            <a href="{% url 'logout' %}">Abonnements</a>
+
+            <a href="{% url 'logout' %}">Se déconnecter</a>
+        </p>
+    </nav>
+    {% endif %}
+    <section>
     <div class="border header">
-
-        
-        {%  if user.is_authenticated %}
-        <div class="header">
-            <div class="case"><p>Vous êtes connecté en tant que {{ request.user }}.</p></div>
-            <div class="case">
-            <p>
-                <a href="{% url 'logout' %}">FLux</a>
-                <a href="{% url 'logout' %}">Posts</a>
-                <a href="{% url 'logout' %}">Abonnements</a>
-
-                <a href="{% url 'logout' %}">Se déconnecter</a>
-            </p>
-            </div>
-        </div>
         <div class="content">
         {% block content %}{% endblock content %}
         </div>
-        {% endif %}
     </div>
     <section>
 

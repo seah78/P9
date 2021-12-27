@@ -4,22 +4,38 @@
 
 <div class="header">
     <div class="case">    
-        <p><button>Demander une critique</button></p>
+        <p><button onclick="window.location.href = {% url 'make_ticket' %};">Demander une critique</button></p>
     </div>
     <div class="case">    
-    <p><button onclick="window.location.href = {% url 'make_ticket' %};">Créer une critique</button></p>
+        <p><button onclick="window.location.href = {% url 'make_review' %};">Créer une critique</button></p>
     </div>
 </div>
 <div class="content">
-    {% for ticket in tickets %}
-    <div class="border">
-    <p>{{ ticket.title }}<br>
-    {{ ticket.description}}<br> 
-    <img src="{{ ticket.image.url }}"><br>
 
-    </p>
-    </div>
+
+
+    {% for post in posts %}
+        {% if post.content_type=="TICKET" %}
+        <div class="border">
+            <p>{{ post.title }}<br>
+            {{ post.description}}<br> 
+            <img src="{{ post.image.url }}"><br>
+    
+            </p>
+            </div>
+        {% else %}
+            <div class="border">    
+            <p>{{ post.headline }}<br>
+            {{ post.rating }}
+            {{ post.body }}<br> 
+            {{ post.ticket.title }}
+            {{ post.ticket.description }}
+            <img src="{{ post.ticket.image.url }}"><br>
+
+        {% endif %}
     {% endfor %}
+
+
 </div>
 
 {% endif %}

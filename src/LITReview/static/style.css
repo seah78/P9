@@ -15,12 +15,17 @@ section {
     text-align: center;
   }
 
-.left {
-  align-items: left;
+nav {
+  display: flex;
+  width: 100%;
+  padding: 5px;
+  text-align: justify;  
 }
 
-.right {
-  align-items: right;
+div{
+  align-items: left;
+  justify-content: left;
+
 }
 
 .border {
