@@ -25,7 +25,11 @@
             {% endif %}
             <p>
                 <button onclick="window.location.href = {% url 'make_review' post.id %};">Créer une critique</button>
+                <a href="{% url 'make_review' post.id %}">Créer une critique</a>
+
                 <button onclick="window.location.href = {% url 'edit_ticket' post.id %};">Modifier la demande</button>
+                <a href="{% url 'edit_ticket' post.id %}">Modifier la demande</a>
+
 
             </p>
             </p>
@@ -39,7 +43,7 @@
                 <p>{{ post.ticket.title }}</p>
                 <p>{{ post.ticket.description }}</p>
                 <p>
-                    {% if post.image %}
+                    {% if post.ticket.image %}
                         <img src="{{ post.ticket.image.url }}">
                     {% endif %}
                 </p>

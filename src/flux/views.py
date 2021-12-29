@@ -58,7 +58,7 @@ def make_review(request, ticket_id):
         form = ReviewForm(request.POST, request.FILES)
         if form.is_valid():
             review = form.save(commit=False)
-            review.ticket = ticket.id
+            review.ticket = ticket
             review.user =request.user
             review.save()
             return redirect("flux")
@@ -95,17 +95,39 @@ def edit_ticket(request, ticket_id):
     delete_form = DeleteTicketForm()
     if request.method == 'POST':
         if 'edit_ticket' in request.POST:
-            edit_form = TicketForm(request.POST, instance=ticket)
+            edit_form = TicketForm(request.POST, request.FILES, instance=ticket)
             if edit_form.is_valid():
                 edit_form.save()
-                return redirect('flux')
+                return redirect('posts')
             if 'delete_ticket' in request.POST:
                 delete_form = DeleteTicketForm(request.POST)
                 if delete_form.is_valid():
                     ticket.delete()
-                    return redirect('flux')
+                    return redirect('posts')
     context = {
         'edit_form': edit_form,
         'delete_form': delete_form,
     }
     return render(request, 'flux/edit_ticket.html', context=context)
+
+@login_required
+def edit_review(request, review_id):
+    review = get_object_or_404(Ticket, id=review_id)
+    edit_form = ReviewForm(instance=review)
+    delete_form = DeleteReviewForm()
+    if request.method == 'POST':
+        if 'edit_review' in request.POST:
+            edit_form = ReviewForm(request.POST, request.FILES, instance=review)
+            if edit_form.is_valid():
+                edit_form.save()
+                return redirect('posts')
+            if 'delete_review' in request.POST:
+                delete_form = DeleteReviewForm(request.POST)
+                if delete_form.is_valid():
+                    review.delete()
+                    return redirect('posts')
+    context = {
+        'edit_form': edit_form,
+        'delete_form': delete_form,
+    }
+    return render(request, 'flux/edit_review.html', context=context)
