@@ -20,21 +20,21 @@ def flux(request):
 
     return render(request, 'flux/flux.html', {'posts': posts})
 
-"""
+
 @login_required(login_url="/")
-def post(request):
-    tickets = Ticket.objects.all()
-    reviews = Review.objects.all()
+def posts(request):
     tickets = Ticket.objects.filter(user__exact=request.user)
     reviews = Review.objects.filter(user__exact=request.user)
+    tickets = tickets.annotate(content_type=Value('TICKET', CharField()))
+    reviews = reviews.annotate(content_type=Value('REVIEW', CharField()))
     posts = sorted(
         chain(reviews, tickets),
         key=lambda post: post.time_created,
         reverse=True
     )
 
-    return render(request, 'flux/flux.html', {'posts': posts})
-"""
+    return render(request, 'flux/posts.html', {'posts': posts})
+
 
 @login_required(login_url="/")
 def make_ticket(request):

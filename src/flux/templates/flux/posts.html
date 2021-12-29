@@ -1,0 +1,52 @@
+{% extends 'index.html' %}
+{% block content %}
+{%  if user.is_authenticated %}
+
+<div class="header">
+    <div class="case">    
+        <p><button onclick="window.location.href = {% url 'make_ticket' %};">Demander une critique</button></p>
+    </div>
+    <div class="case">    
+        <p><button onclick="window.location.href = {% url 'make_review_ticket' %};">Créer une critique</button></p>
+    </div>
+</div>
+<div class="content">
+
+
+
+    {% for post in posts %}
+        {% if post.content_type == "TICKET" %}
+        <div class="border">
+            <p>{{ post.title }}</p>
+            <p>{{ post.description}}</p>
+            <p>
+            {% if post.image %}
+                <img src="{{ post.image.url }}">
+            {% endif %}
+            <p><button onclick="window.location.href = {% url 'make_review' %};">Créer une critique</button></p>
+            </p>
+        </div>
+        {% else %}
+        <div class="border">    
+            <p>{{ post.headline }}</p>
+            <p>{{ post.rating }}</p>
+            <p>{{ post.body }}</p>
+            <div class="border">   
+                <p>{{ post.ticket.title }}</p>
+                <p>{{ post.ticket.description }}</p>
+                <p>
+                    {% if post.image %}
+                        <img src="{{ post.ticket.image.url }}">
+                    {% endif %}
+                </p>
+            </div>
+        </div>
+        {% endif %}
+    {% endfor %}
+
+
+</div>
+
+
+{% endif %}
+{% endblock content %}
