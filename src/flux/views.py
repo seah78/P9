@@ -1,10 +1,10 @@
 
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.db.models import  Value, CharField
 from itertools import chain
 from .models import Ticket, Review
-from .forms import ReviewForm, TicketForm
+from .forms import ReviewForm, TicketForm, DeleteTicketForm, DeleteReviewForm
 
 @login_required(login_url="/")
 def flux(request):
@@ -51,12 +51,14 @@ def make_ticket(request):
 
 
 @login_required(login_url="/")
-def make_review(request):
+def make_review(request, ticket_id):
+    ticket = get_object_or_404(Ticket, id=ticket_id)
     form = ReviewForm()
     if request.method == "POST":
         form = ReviewForm(request.POST, request.FILES)
         if form.is_valid():
             review = form.save(commit=False)
+            review.ticket = ticket.id
             review.user =request.user
             review.save()
             return redirect("flux")
@@ -84,3 +86,26 @@ def make_review_ticket(request):
         'review_form' : review_form,
     }
     return render(request, 'flux/create_review_ticket.html', context=context) 
+
+
+@login_required
+def edit_ticket(request, ticket_id):
+    ticket = get_object_or_404(Ticket, id=ticket_id)
+    edit_form = TicketForm(instance=ticket)
+    delete_form = DeleteTicketForm()
+    if request.method == 'POST':
+        if 'edit_ticket' in request.POST:
+            edit_form = TicketForm(request.POST, instance=ticket)
+            if edit_form.is_valid():
+                edit_form.save()
+                return redirect('flux')
+            if 'delete_ticket' in request.POST:
+                delete_form = DeleteTicketForm(request.POST)
+                if delete_form.is_valid():
+                    ticket.delete()
+                    return redirect('flux')
+    context = {
+        'edit_form': edit_form,
+        'delete_form': delete_form,
+    }
+    return render(request, 'flux/edit_ticket.html', context=context)

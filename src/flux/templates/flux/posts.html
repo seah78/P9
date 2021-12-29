@@ -23,7 +23,11 @@
             {% if post.image %}
                 <img src="{{ post.image.url }}">
             {% endif %}
-            <p><button onclick="window.location.href = {% url 'make_review' %};">Créer une critique</button></p>
+            <p>
+                <button onclick="window.location.href = {% url 'make_review' post.id %};">Créer une critique</button>
+                <button onclick="window.location.href = {% url 'edit_ticket' post.id %};">Modifier la demande</button>
+
+            </p>
             </p>
         </div>
         {% else %}

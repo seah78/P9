@@ -3,6 +3,7 @@ from .models import Ticket, Review
 
 class TicketForm(forms.ModelForm):
     """Ticket creation form."""
+    edit_ticket = forms.BooleanField(widget=forms.HiddenInput, initial=True)
 
     class Meta:
         model = Ticket
@@ -10,7 +11,15 @@ class TicketForm(forms.ModelForm):
         
 class ReviewForm(forms.ModelForm):
     """Review creation form."""
+    edit_review = forms.BooleanField(widget=forms.HiddenInput, initial=True)
     
     class Meta:
         model = Review
         fields = ["rating", "headline", "body"]
+        
+class DeleteTicketForm(forms.Form):
+    delete_ticket = forms.BooleanField(widget=forms.HiddenInput, initial=True)
+    
+class DeleteReviewForm(forms.Form):
+    delete_ticket = forms.BooleanField(widget=forms.HiddenInput, initial=True)
+    
