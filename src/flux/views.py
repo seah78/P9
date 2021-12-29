@@ -20,8 +20,9 @@ def flux(request):
 
     return render(request, 'flux/flux.html', {'posts': posts})
 
+"""
 @login_required(login_url="/")
-def flux(request):
+def post(request):
     tickets = Ticket.objects.all()
     reviews = Review.objects.all()
     tickets = Ticket.objects.filter(user__exact=request.user)
@@ -33,6 +34,7 @@ def flux(request):
     )
 
     return render(request, 'flux/flux.html', {'posts': posts})
+"""
 
 @login_required(login_url="/")
 def make_ticket(request):
@@ -60,8 +62,25 @@ def make_review(request):
             return redirect("flux")
     return render(request, "flux/create_review.html", context={"form":form})    
 
-"""        
+        
 @login_required(login_url="/")
 def make_review_ticket(request):
-    pass
-"""
+    ticket_form = TicketForm()
+    review_form = ReviewForm()
+    if request.method == "POST":
+        ticket_form =  TicketForm(request.POST, request.FILES)
+        review_form = ReviewForm(request.POST, request.FILES)
+        if any([ticket_form.is_valid(), review_form.is_valid()]):
+            ticket = ticket_form.save(commit=False)
+            ticket.user = request.user
+            ticket.save()
+            review = review_form.save(commit=False)
+            review.user = request.user
+            review.ticket = ticket
+            review.save()
+            return redirect("flux")            
+    context = {
+        'ticket_form' : ticket_form,
+        'review_form' : review_form,
+    }
+    return render(request, 'flux/create_review_ticket.html', context=context) 

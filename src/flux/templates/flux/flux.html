@@ -7,7 +7,7 @@
         <p><button onclick="window.location.href = {% url 'make_ticket' %};">Demander une critique</button></p>
     </div>
     <div class="case">    
-        <p><button onclick="window.location.href = {% url 'make_review' %};">Créer une critique</button></p>
+        <p><button onclick="window.location.href = {% url 'make_review_ticket' %};">Créer une critique</button></p>
     </div>
 </div>
 <div class="content">
@@ -15,23 +15,32 @@
 
 
     {% for post in posts %}
-        {% if post.content_type=="TICKET" %}
+        {% if post.content_type == "TICKET" %}
         <div class="border">
-            <p>{{ post.title }}<br>
-            {{ post.description}}<br> 
-            <img src="{{ post.image.url }}"><br>
-    
+            <p>{{ post.title }}</p>
+            <p>{{ post.description}}</p>
+            <p>
+            {% if post.image %}
+                <img src="{{ post.image.url }}">
+            {% endif %}
+            <p><button onclick="window.location.href = {% url 'make_review' %};">Créer une critique</button></p>
             </p>
-            </div>
+        </div>
         {% else %}
-            <div class="border">    
-            <p>{{ post.headline }}<br>
-            {{ post.rating }}
-            {{ post.body }}<br> 
-            {{ post.ticket.title }}
-            {{ post.ticket.description }}
-            <img src="{{ post.ticket.image.url }}"><br>
-
+        <div class="border">    
+            <p>{{ post.headline }}</p>
+            <p>{{ post.rating }}</p>
+            <p>{{ post.body }}</p>
+            <div class="border">   
+                <p>{{ post.ticket.title }}</p>
+                <p>{{ post.ticket.description }}</p>
+                <p>
+                    {% if post.image %}
+                        <img src="{{ post.ticket.image.url }}">
+                    {% endif %}
+                </p>
+            </div>
+        </div>
         {% endif %}
     {% endfor %}
 
