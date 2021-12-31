@@ -22,9 +22,15 @@ nav {
   text-align: justify;  
 }
 
-div{
+div {
   align-items: left;
   justify-content: left;
+
+}
+
+img {
+  width: 10%;
+  border-radius: 5px;
 
 }
 

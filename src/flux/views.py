@@ -99,11 +99,11 @@ def edit_ticket(request, ticket_id):
             if edit_form.is_valid():
                 edit_form.save()
                 return redirect('posts')
-            if 'delete_ticket' in request.POST:
-                delete_form = DeleteTicketForm(request.POST)
-                if delete_form.is_valid():
-                    ticket.delete()
-                    return redirect('posts')
+        if 'delete_ticket' in request.POST:
+            delete_form = DeleteTicketForm(request.POST)
+            if delete_form.is_valid():
+                ticket.delete()
+                return redirect('posts')
     context = {
         'edit_form': edit_form,
         'delete_form': delete_form,
@@ -112,7 +112,7 @@ def edit_ticket(request, ticket_id):
 
 @login_required
 def edit_review(request, review_id):
-    review = get_object_or_404(Ticket, id=review_id)
+    review = get_object_or_404(Review, id=review_id)
     edit_form = ReviewForm(instance=review)
     delete_form = DeleteReviewForm()
     if request.method == 'POST':
@@ -121,11 +121,12 @@ def edit_review(request, review_id):
             if edit_form.is_valid():
                 edit_form.save()
                 return redirect('posts')
-            if 'delete_review' in request.POST:
-                delete_form = DeleteReviewForm(request.POST)
-                if delete_form.is_valid():
-                    review.delete()
-                    return redirect('posts')
+        if 'delete_review' in request.POST:
+            print("Check")
+            delete_form = DeleteReviewForm(request.POST)
+            if delete_form.is_valid():
+                review.delete()
+                return redirect('posts')
     context = {
         'edit_form': edit_form,
         'delete_form': delete_form,

@@ -21,5 +21,5 @@ class DeleteTicketForm(forms.Form):
     delete_ticket = forms.BooleanField(widget=forms.HiddenInput, initial=True)
     
 class DeleteReviewForm(forms.Form):
-    delete_ticket = forms.BooleanField(widget=forms.HiddenInput, initial=True)
+    delete_review = forms.BooleanField(widget=forms.HiddenInput, initial=True)
     

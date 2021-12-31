@@ -4,10 +4,10 @@
 
 <div class="header">
     <div class="case">    
-        <p><button onclick="window.location.href = {% url 'make_ticket' %};">Demander une critique</button></p>
+        <p><input type=button onclick=window.location.href="{% url 'make_ticket'%}"; value="Demander une critique" /></p>
     </div>
     <div class="case">    
-        <p><button onclick="window.location.href = {% url 'make_review_ticket' %};">Créer une critique</button></p>
+        <p><input type=button onclick=window.location.href="{% url 'make_review_ticket'%}"; value="Créer une critique" /></p>
     </div>
 </div>
 <div class="content">
@@ -16,40 +16,58 @@
 
     {% for post in posts %}
         {% if post.content_type == "TICKET" %}
-        <div class="border">
-            <p>{{ post.title }}</p>
-            <p>{{ post.description}}</p>
-            <p>
-            {% if post.image %}
-                <img src="{{ post.image.url }}">
-            {% endif %}
-            <p>
-                <button onclick="window.location.href = {% url 'make_review' post.id %};">Créer une critique</button>
-                <a href="{% url 'make_review' post.id %}">Créer une critique</a>
-
-            </p>
-            </p>
-        </div>
-        {% else %}
-        <div class="border">    
-            <p>{{ post.headline }}</p>
-            <p>{{ post.rating }}</p>
-            <p>{{ post.body }}</p>
-            <div class="border">   
-                <p>{{ post.ticket.title }}</p>
-                <p>{{ post.ticket.description }}</p>
+            <div class="border">
                 <p>
-                    {% if post.ticket.image %}
-                        <img src="{{ post.ticket.image.url }}">
+                    {% if post.user == user %}
+                        Vous avez demandé une critique
+                    {% else %}
+                        {{ post.user }} a demandé une critique
+                    {% endif %}
+                    {{ post.time_created }}
+                </p>
+                <p>{{ post.title }}</p>
+                <p>{{ post.description}}</p>
+                <p>
+                    {% if post.image %}
+                        <img src="{{ post.image.url }}">
+                    {% endif %}
+                    {% if post.rewiews.ticket.user == user %}
+                        Vous avez déjà publié pour ce ticket
+                    {% else %}
+                        <p>
+                            <input type=button onclick=window.location.href="{% url 'make_review' post.id %}"; value="Créer une critique" />
+                        </p>
                     {% endif %}
                 </p>
             </div>
-        </div>
+        {% else %}
+            <div class="border">
+                <p>
+                    {% if post.user == user %}
+                        Vous avez posté une critique
+                    {% else %}
+                        {{ post.user }} a posté une critique
+                    {% endif %}
+                    {{ post.time_created }}
+                </p>
+                <p>{{ post.headline }} - {{ post.rating }}</p>
+                <p>{{ post.body }}</p>
+                <div class="border">
+                    <p>
+                        Ticket - {{ post.ticket.user }}
+                        {{ post.ticket.time_created }}
+                    </p>
+                    <p>{{ post.ticket.title }}</p>
+                    <p>{{ post.ticket.description }}</p>
+                    <p>
+                        {% if post.ticket.image %}
+                            <img src="{{ post.ticket.image.url }}">
+                        {% endif %}
+                    </p>
+                </div>
+            </div>
         {% endif %}
     {% endfor %}
-
-
 </div>
-
 {% endif %}
 {% endblock content %}
