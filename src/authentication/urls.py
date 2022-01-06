@@ -24,6 +24,5 @@ urlpatterns = [
          name='password_change_done'
          ),
     path('signup/', signup_page, name='signup')
-    #path('home/', blog.views.home, name='home'),
 ]
 

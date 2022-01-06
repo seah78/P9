@@ -23,6 +23,8 @@ urlpatterns = [
     #path('', authentication.views.login_page, name="login"),
     path('', include("authentication.urls")),
     path('', include("flux.urls")),
+    path('', include("followers.urls")),
+
 
     path('admin/', admin.site.urls),
 ]
