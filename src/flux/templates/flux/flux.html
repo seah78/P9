@@ -34,9 +34,11 @@
                     {% if post.rewiews.ticket.user == user %}
                         Vous avez déjà publié pour ce ticket
                     {% else %}
+                        {% if post.is_reviewed == False %}
                         <p>
                             <input type=button onclick=window.location.href="{% url 'make_review' post.id %}"; value="Créer une critique" />
                         </p>
+                        {% endif %}
                     {% endif %}
                 </p>
             </div>

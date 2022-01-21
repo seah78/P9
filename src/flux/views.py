@@ -61,8 +61,10 @@ def make_review(request, ticket_id):
             review.ticket = ticket
             review.user =request.user
             review.save()
+            ticket.is_reviewed = True
+            ticket.save()
             return redirect("flux")
-    return render(request, "flux/create_review.html", context={"form":form})    
+    return render(request, "flux/create_review.html", context={"form":form})     
 
         
 @login_required(login_url="/")
@@ -75,6 +77,7 @@ def make_review_ticket(request):
         if any([ticket_form.is_valid(), review_form.is_valid()]):
             ticket = ticket_form.save(commit=False)
             ticket.user = request.user
+            ticket.is_reviewed = True
             ticket.save()
             review = review_form.save(commit=False)
             review.user = request.user

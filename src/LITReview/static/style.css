@@ -34,6 +34,10 @@ img {
 
 }
 
+table, th, td {
+  border:1px solid black;
+}
+
 .border {
     border: solid 1px #000000;
     background-color:#ffffff;
@@ -54,3 +58,21 @@ img {
     width: 95%;
     padding: 5px;
   }
+
+.rating {
+  direction: rtl;
+}
+.rating a {
+  float: right;
+  color: #aaa;
+  text-decoration: none;
+  font-size: 3em;
+  transition: color .4s;
+ }
+ .rating a:hover,
+ .rating a:focus,
+ .rating a:hover ~ a,
+ .rating a:focus ~ a {
+    color: orange;
+    cursor: pointer;
+ }
