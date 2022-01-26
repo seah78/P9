@@ -6,13 +6,13 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('flux', '0004_alter_review_ticket'),
+        ("flux", "0004_alter_review_ticket"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='ticket',
-            name='is_reviewed',
+            model_name="ticket",
+            name="is_reviewed",
             field=models.BooleanField(default=False),
         ),
     ]

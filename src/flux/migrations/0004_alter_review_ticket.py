@@ -7,13 +7,15 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('flux', '0003_alter_review_ticket'),
+        ("flux", "0003_alter_review_ticket"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='review',
-            name='ticket',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='flux.ticket'),
+            model_name="review",
+            name="ticket",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE, to="flux.ticket"
+            ),
         ),
     ]
